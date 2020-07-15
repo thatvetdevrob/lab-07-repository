@@ -174,7 +174,7 @@ function handleTrails (request, response){
     key: process.env.HIKE_API_KEY,
     lat: request.query.latitude,
     lon: request.query.longitude,
-    maxResults: 10
+    maxResults: 5
   };
 
   //     __

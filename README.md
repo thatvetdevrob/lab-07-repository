@@ -1,60 +1,50 @@
 # Project Name
 
-**Author**: Your Name Goes Here
+**Author**: Robert Rizo
 **Version**: 1.0.0 (increment the patch/fix version number if you make more commits past your first submission)
 
 # The location
 
-Number and name of feature: feature 1
+Number and name of feature: feature 1 / refactor trails
 
-Estimate of time needed to complete: an hour
+Estimate of time needed to complete: hour / two
 
-Start time: 2 pm monday
+Start time: 3 pm tuesday
 
-Finish time: 6 am tuesday
-
-Actual time needed to complete: 18 hours
-
-# The weather
-
-Number and name of feature: feature 2
-
-Estimate of time needed to complete: hour
-
-Start time: 06 am
-
-Finish time: 8 am
+Finish time: 5pm tuesday
 
 Actual time needed to complete: 2 hours
 
-# Error handling
+# The weather
 
-Number and name of feature: feature 3: stautus codes and error handling on try catch (but no finally) block
+Number and name of feature: feature 2 / wetaher refactor
 
-Estimate of time needed to complete: 20 minutes
+Estimate of time needed to complete: hour
 
-Start time: 740 am
+Start time: 09pm
 
-Finish time: 8 am
+Finish time: 10 pm
 
-Actual time needed to complete: less than 10
+Actual time needed to complete: 1 hours
 
+# The weather
+
+Number and name of feature: feature 3 / new: trails
+
+Estimate of time needed to complete: 2
+
+Start time: 7am wednesday
+
+Finish time: 7am wednesday
+
+Actual time needed to complete: 1 hours
 
 
 ## Overview
-<!-- Provide a high level overview of what this application is and why you are building it, beyond the fact that it's an assignment for this class. (i.e. What's your problem domain?) -->
+We are iulding an aplication that can see the location anywhere in america, return 1 result, check the weather, and get back 5 trails back.
 
 ## Getting Started
-<!-- What are the steps that a user must take in order to build this app on their own machine and get it running? -->
+Just rewirk a newer version of the last lab and this time use API, which you need the API keps from the places and place them in to the env file. Speaking of which you need to make the ENViromental keys accesible via variables and use gitignore to not display them.
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-
-## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an examples:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource.
-
-## Credits and Collaborations
-<!-- Give credit (and a link) to other people or resources that helped you build this application. -->
--->
+we are using json, api, i belive mustache, and also lots of javascript. This along NPM and nodejs

@@ -44,6 +44,14 @@ const PORT = process.env.PORT || 3001;
 // \ <_. )
 //  `---'   hjw
 
+// // ############################ location ##################################################################
+
+//   //     __
+//   // ___( o)>
+//   // \ <_. )
+//   //  `---'   hjw
+//   /* Rubber duck says: Use the refactored way */
+
 
 app.get('/location', handleLocation);
 
@@ -59,6 +67,13 @@ function handleLocation(request, response){
   let city = request.query.city;
   // let geoData = require('./data/location.json');
   let url = `https://us1.locationiq.com/v1/search.php`;
+
+  //     __
+  // ___( o)>
+  // \ <_. )
+  //  `---'   hjw
+  /* Rubber duck says: all saved as a variable and now calling ont eh keys on the env file */
+
 
   let queryParams = {
     key: process.env.GEO_DATA_API_KEY,
@@ -84,6 +99,12 @@ function handleLocation(request, response){
 
 }
 
+//     __
+// ___( o)>
+// \ <_. )
+//  `---'   hjw
+/* Rubber duck says: Constructor for locations */
+
 function Location(location, geoData){
   this.search_query = location;
   this.formatted_query = geoData[0].display_name;
@@ -91,10 +112,141 @@ function Location(location, geoData){
   this.longitude = geoData[0].lon;
 }
 
+// // ############################ Weather ##################################################################
+
+//   //     __
+//   // ___( o)>
+//   // \ <_. )
+//   //  `---'   hjw
+//   /* Rubber duck says: Use the refactored way */
+
+
+app.get('/weather', handleWeather);
+
+function handleWeather (request, response){
+
+  let url = `http://api.weatherbit.io/v2.0/forecast/daily`;
+
+  //     __
+  // ___( o)>
+  // \ <_. )
+  //  `---'   hjw
+  /* Rubber duck says: Get a key and thenput it in the env file or else NOTHING! */
+
+  let queryParameters = {
+    key: process.env.WEATHER_API_KEY,
+    lat: request.query.latitude,
+    lon: request.query.longitude
+  };
+
+  superagent.get(url)
+    .query(queryParameters)
+    .then(resultsFromSuperagent => {
+      let forecastArray = resultsFromSuperagent.body.data.map(date => {
+        return new Weather(date);
+      });
+      response.status(200).send(forecastArray);
+    });
+
+}
+
+function Weather(obj) {
+  this.forecast = obj.weather.description;
+  this.time = new Date(obj.datetime).toDateString(); //may need to switch to valid_date if API doesn't cooperate
+}
+
+
+// ########################### TRAILS #####################################################################
+
+//     __
+// ___( o)>
+// \ <_. )
+//  `---'   hjw
+/* Rubber duck says: use refactor way */
+
+app.get('/trails', handleTrails);
+
+function handleTrails (request, response){
+
+  let url = `https://www.hikingproject.com/data/get-trails`;
+
+  let queryParameters = {
+    key: process.env.HIKE_API_KEY,
+    lat: request.query.latitude,
+    lon: request.query.longitude,
+    maxResults: 10
+  };
+
+  //     __
+  // ___( o)>
+  // \ <_. )
+  //  `---'   hjw
+  /* Rubber duck says: we need API key and in to the ENV file */
+
+  superagent.get(url)
+    .query(queryParameters)
+    .then(resultsFromSuperagent => {
+      let trailArray = resultsFromSuperagent.body.trails.map(route => {
+        return new Trail(route);
+      });
+      response.status(200).send(trailArray);
+    }).catch((error) => {
+      console.log('ERROR', error);
+      response.status(500).send('Sorry, something went terribly wrong in trails');
+    });
+}
+
+//     __
+// ___( o)>
+// \ <_. )
+//  `---'   hjw
+/* Rubber duck says: Construct the trails w this */
+
+function Trail(obj) {
+  this.name = obj.name;
+  this.location = obj.location;
+  this.length = obj.length;
+  this.stars = obj.stars;
+  this.star_votes = obj.starVotes;
+  this.summary = obj.summary;
+  this.trail_url = obj.url;
+  this.conditions = obj.conditionDetails;
+  this.condition_date = obj.conditionDate.substring(0,10);
+  this.condition_time = obj.conditionDate.substring(11,19);
+}
+
+//     __
+// ___( o)>
+// \ <_. )
+//  `---'   hjw
+/* Rubber duck says: Turn on the port */
+
+
 // turn it on
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
+
+
+/*
+################### Welcome to the #################################
+                      .-.
+         heehee      /aa \_
+                   __\-  / )                 .-.
+         .-.      (__/    /        haha    _/oo \
+       _/ ..\       /     \               ( \v  /__
+      ( \  u/__    /       \__             \/   ___)
+       \    \__)   \_.-._._   )  .-.       /     \
+       /     \             `-`  / ee\_    /       \_
+    __/       \               __\  o/ )   \_.-.__   )
+   (   _._.-._/     hoho     (___   \/           '-'
+jgs '-'                        /     \
+                             _/       \    teehee
+                            (   __.-._/
+
+############################ DEAD ZONE ############################
+*/
+
 
 // app.get('/location', (request, response) => {
 
